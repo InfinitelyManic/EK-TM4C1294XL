@@ -1,7 +1,7 @@
 ; David West
 ;	bare_boot_up.asm ;bare minimum boot up Assembly code for Tiva C EK-TM4C1294XL Cortex-M4
 ;	Using Code Composer Studio with ARM Compiler
-; Default Linker Command file for the Texas Instruments TM4C123GH6PM * This is derived from revision 15071 of the TivaWare Library.
+; 	Default Linker Command file for the Texas Instruments TM4C123GH6PM * This is derived from revision 15071 of the TivaWare Library.
 ;	Code derived from ARM Assembly Language, 2nd Edition, W. Hohl, C. Hinds
 ;	03/21/2016
 
@@ -13,24 +13,24 @@ myStart:
 		; system control base is 0x400fe000 == SYSCTL_SYSCTL_DID0 Device ID 0
 		movw	r0, #0xe000
 		movt	r0, #0x400f			; SYSCTL_SYSCTL_DID0 = base  = 0x400fe000
-		mov		r2, #0x60			; offset 0x60 = SYSCTL_SYSCTL_RCC= Run-Mode Clock Config
+		mov	r2, #0x60			; offset 0x60 = SYSCTL_SYSCTL_RCC= Run-Mode Clock Config
 		movw	r1, #0x0540
 		movt	r1, #0x01c0			; 0x01c00540  = 0001 1100 0000 0000 0101 0100 0000
-		str		r1, [r0,r2]			; write the register's contents
+		str	r1, [r0,r2]			; write the register's contents
 
 		; enable SYSCTL_RCGGPIO_R5 clock = GPIO Run-Mode Clock Gating Control for register five (5)
 		movw	r2, #0x608			; offset for SYSCTL_SYSCTL_RCGCGPIO
-		ldr		r1, [r0,r2]
-		orr		r1, r1, #0x20		; 0b10,0000 = GPIO Reg 4 - Port F
-		str		r1, [r0,r2]			; SYSCTL_RCGCGPIO = 0x20
+		ldr	r1, [r0,r2]
+		orr	r1, r1, #0x20			; 0b10,0000 = GPIO Reg 4 - Port F
+		str	r1, [r0,r2]			; SYSCTL_RCGCGPIO = 0x20
 
 		; set direction (input | output) using GPIODIR
 		; Address for LED on APB GPIO Port F is 0x40025000
 		movw	r0, #0x5000
 		movt	r0, #0x4002			;
 		movw	r2, #0x400			; offset for GPIO_PORTF_GPIO_DIR
-		mov		r1, #0xe			; 0b1110; must be set for output
-		str		r1, [r0,r2]			; 0x40025400 = 0b1110 = 0xe
+		mov	r1, #0xe			; 0b1110; must be set for output
+		str	r1, [r0,r2]			; 0x40025400 = 0b1110 = 0xe
 
 		; enable pin by setting the GPIO_PORTF_GPIO_DEN
 		movw 	r2, #0x51c			; offset for Digital ENable reg
@@ -52,13 +52,7 @@ spin:
 		movge	r6, #2
 		b mainloop
 
-
-
-
-
-
 	b myStart
-
 	.text
 
 	; This is the Reset Handler
