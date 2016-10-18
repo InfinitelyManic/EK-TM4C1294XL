@@ -38,19 +38,7 @@ myStart:
 		sub 	r7, r7, r7			; zero out
 		mov 	r6, #2				; 0b10
 
-mainloop:
-		; turn on LED
-		str r6, [r0,#0x38]
-		movt	r7, #0xf4
-spin:
-		subs	r7, r7, #1
-		bne 	spin
-		; change colors
-		cmp		r6, #8
-		ite		lt
-		lsllt	r6, r6, #1
-		movge	r6, #2
-		b mainloop
+
 
 	b myStart
 	.text
