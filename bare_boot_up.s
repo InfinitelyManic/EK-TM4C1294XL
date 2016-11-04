@@ -1,43 +1,39 @@
 ; 	David @InfinitelyManic
-;	bare_boot_up.s ;bare minimum boot up Assembly code for Tiva C EK-TM4C1294XL Cortex-M4
+;	bare_boot_up.s ; minimum baremetal boot up ARMv7 code for Tiva C EK-TM4C1294XL Cortex-M4
 ;	Using Code Composer Studio with ARM Compiler
 ; 	Default Linker Command file for the Texas Instruments TM4C123GH6PM * This is derived from revision 15071 of the TivaWare Library.
 ;	Code derived from ARM Assembly Language, 2nd Edition, W. Hohl, C. Hinds
 ;	03/21/2016 - WORK IN PROGRESS
+; 
+; Define the stack
+myStack: .usect ".stack", 0x400
 
-	.global myStart, myStack, ResetISR, Vecs, _c_int00, _main
-	
-	; Interrupt vector table {abbr}
-		.retain ".intvecs"	; this is for the linker
+; Interrupt vector table {abbr}
+		.retain ".intvecs"		; this is for the linker
 		.sect ".intvecs"
 Vecs:
-		.word myStack
-		.word _c_int00
+		.word myStack			; stack pointer
+		.word _c_int00			; This is the Reset handler
 		.word NmISR
 		.word FaultISR
 		.word 0
+		
+		.global myStack, Vecs, _c_int00, NmISR, FaultISR, myStart
 
-	.sect ".myCode" ; Enter your code below 
+	.sect ".myCode" 			; Enter your code below ****************************
 myStart:
 		
 
 
 	b myStart
-	; *************************************
-	
-	
+	; *******************************************************************************
+		
+; ************* interrupts **************		
 	.text
-; ************* interrupts **************
-; This is the Reset Handler
-_c_int00:
+_c_int00:						; This is the Reset handler
 		b myStart
-
-; This is the dummy Fauly handler
-NmISR:
+NmISR: 							; This is the dummy Fault handler
 		b $
-; This is the dummy Fault Handler
-FaultISR:
+FaultISR:						; This is the dummy Fault Handler
 		b $
-; Define the stack
-myStack: .usect ".stack", 0x400
 .end
