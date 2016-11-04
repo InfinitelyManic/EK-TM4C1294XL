@@ -3,7 +3,7 @@
 ;	Using Code Composer Studio with ARM Compiler
 ; 	Default Linker Command file for the Texas Instruments TM4C123GH6PM * This is derived from revision 15071 of the TivaWare Library.
 ;	Code derived from ARM Assembly Language, 2nd Edition, W. Hohl, C. Hinds
-;	03/21/2016 - WORK IN PROGRESS
+;	11/04/2016 - WORK IN PROGRESS
 
 	.global myStart, myStack, ResetISR, Vecs, _c_int00, _main
 	
