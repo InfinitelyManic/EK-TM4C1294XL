@@ -1,9 +1,9 @@
 ; 	David @InfinitelyManic
 ;	bare_boot_up.s ;bare minimum boot up Assembly code for Tiva C EK-TM4C1294XL Cortex-M4
-;	Using Code Composer Studio Version: 6.2.0.00050 with TI v15.12.3.LTS
+;	Using Code Composer Studio with ARM Compiler
 ; 	Default Linker Command file for the Texas Instruments TM4C123GH6PM * This is derived from revision 15071 of the TivaWare Library.
 ;	Code derived from ARM Assembly Language, 2nd Edition, W. Hohl, C. Hinds
-;	11/04/2016 - WORK IN PROGRESS
+;	03/21/2016 - WORK IN PROGRESS
 
 	.global myStart, myStack, ResetISR, Vecs, _c_int00, _main
 	
@@ -23,11 +23,11 @@ myStart:
 
 
 	b myStart
+	; *************************************
 	
 	
 	.text
 ; ************* interrupts **************
-
 ; This is the Reset Handler
 _c_int00:
 		b myStart
@@ -35,12 +35,9 @@ _c_int00:
 ; This is the dummy Fauly handler
 NmISR:
 		b $
-
 ; This is the dummy Fault Handler
 FaultISR:
 		b $
-
 ; Define the stack
 myStack: .usect ".stack", 0x400
-
 .end
