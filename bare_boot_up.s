@@ -6,30 +6,7 @@
 ;	03/21/2016 - WORK IN PROGRESS
 
 	.global myStart, myStack, ResetISR, Vecs, _c_int00, _main
-
-	.sect ".myCode" ; This can be whatever you want it to be...
-myStart:
-		
-
-
-	b myStart
-	.text
-
-	; This is the Reset Handler
-_c_int00:
-		b myStart
-
-	; This is the dummy Fauly handler
-NmISR:
-		b $
-
-	; This is the dummy Fault Handler
-FaultISR:
-		b $
-
-	; Define the stack
-myStack: .usect ".stack", 0x400
-
+	
 	; Interrupt vector table {abbr}
 		.retain ".intvecs"	; this is for the linker
 		.sect ".intvecs"
@@ -39,3 +16,31 @@ Vecs:
 		.word NmISR
 		.word FaultISR
 		.word 0
+
+	.sect ".myCode" ; Enter your code below 
+myStart:
+		
+
+
+	b myStart
+	
+	
+	.text
+; ************* interrupts **************
+
+; This is the Reset Handler
+_c_int00:
+		b myStart
+
+; This is the dummy Fauly handler
+NmISR:
+		b $
+
+; This is the dummy Fault Handler
+FaultISR:
+		b $
+
+; Define the stack
+myStack: .usect ".stack", 0x400
+
+.end
