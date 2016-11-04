@@ -30,10 +30,10 @@ myStart:
 		
 ; ************* interrupts **************		
 	.text
-_c_int00:						; This is the Reset handler
+_c_int00:					; This is the Reset handler
 		b myStart
-NmISR: 							; This is the dummy Fault handler
+NmISR: 						; This is the dummy Fault handler
 		b $
-FaultISR:						; This is the dummy Fault Handler
+FaultISR:					; This is the dummy Fault Handler
 		b $
 .end
