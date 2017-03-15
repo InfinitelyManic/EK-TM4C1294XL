@@ -179,7 +179,7 @@ uart_receive:
         ldr r3,=UARTn_FR_R              // UART Flag
 .wait0:
         ldrb r12, [r1,r3]               // get flags
-        and r12, r12, #0x00000010               // isolate bit 4 RXFE
+        and r12, r12, #0x00000010       // isolate bit 4 RXFE
         cmp r12, #0x10                  // RXFE
         beq .wait0                      //
         ldrb r0, [r1,r2]
